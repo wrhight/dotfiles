@@ -38,3 +38,4 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 stty -ixon
 
 alias config='/usr/bin/git --git-dir=/home/whight/.cfg/ --work-tree=/home/whight'
+
