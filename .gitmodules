@@ -10,10 +10,10 @@
 [submodule ".vim/pack/plugins/start/vim-airline"]
 	path = .vim/pack/plugins/start/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
-[submodule ".vim/pack/plugins/vim-airline-themes"]
+[submodule ".vim/pack/plugins/start/vim-airline-themes"]
 	path = .vim/pack/plugins/start/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
-[submodule ".vim/pack/plugins/vim-obsession"]
+[submodule ".vim/pack/plugins/start/vim-obsession"]
 	path = .vim/pack/plugins/start/vim-obsession
 	url = https://github.com/tpope/vim-obsession.git
 [submodule ".vim/pack/plugins/start/fzf.vim"]
