@@ -39,3 +39,6 @@ stty -ixon
 
 alias config='/usr/bin/git --git-dir=/home/whight/.cfg/ --work-tree=/home/whight'
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+

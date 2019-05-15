@@ -34,3 +34,6 @@
 [submodule ".zplugins/pure"]
 	path = .zplugins/pure
 	url = https://github.com/sindresorhus/pure.git
+[submodule ".fzf"]
+	path = .fzf
+	url = https://github.com/junegunn/fzf.git

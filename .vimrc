@@ -52,8 +52,7 @@ command W w !sudo tee % > /dev/null
 
 " Plugins
 packadd termdebug
-" change this to ~/.fzf for cloned git repo instead of system repo package
-set rtp+=/usr/bin/fzf
+set rtp+=~/.fzf
 
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
