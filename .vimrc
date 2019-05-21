@@ -64,8 +64,17 @@ command! -bang -nargs=* Ag
   \   <bang>0)
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   "rg --column --line-number --no-heading --color=always --smart-case -g '!tags' -g '!tools' -g '!.build/*' -g '!_Document/*' -g '!DisplayService/Eagle/*' -g '!DisplayService/Hawk/*' ".shellescape(<q-args>), 1,
+  \   "rg --column --line-number --no-heading --color=always --smart-case -g '!tags' -g '!tools' -g '!.build/*' -g '!_Document/*' -g '!tests/*' -g '!DisplayService/Eagle/*' -g '!DisplayService/Hawk/*' ".shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
   \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
   \   <bang>0)
+
+let g:ale_linters = {
+            \ 'cpp': ['cppcheck', 'gcc'],
+            \ 'c': ['cppcheck', 'gcc'],
+            \ 'python': ['flake8'],
+            \}
+
+let g:ale_c_cppcheck_options = '--enable=style,warning,performance -i tools -i .build -i _Document -i tests -i tags -i .git -i .svn'
+let g:ale_cpp_cppcheck_options = '--enable=style,warning,performance -i tools -i .build -i _Document -i tests -i tags -i .git -i .svn'
 
