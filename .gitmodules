@@ -19,9 +19,6 @@
 [submodule ".vim/pack/plugins/start/fzf.vim"]
 	path = .vim/pack/plugins/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
-[submodule ".vim/colors/base16-vim"]
-	path = .vim/colors/base16-vim
-	url = https://github.com/danielwe/base16-vim.git
 [submodule ".tmux/plugins/tpm"]
 	path = .tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git
@@ -37,3 +34,6 @@
 [submodule ".fzf"]
 	path = .fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule ".vim/colors/base16-vim"]
+	path = .vim/colors/base16-vim
+	url = https://github.com/chriskempson/base16-vim.git
