@@ -30,7 +30,7 @@ source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
 [[ -n ${key[PageUp]} ]] && bindkey "${key[PageUp]}" up-line-or-beginning-search
 [[ -n ${key[PageDown]} ]] && bindkey "${key[PageDown]}" down-line-or-beginning-search
 
-alias pc="picocom -b 115200 /dev/ttyUSB0"
+alias pc="picocom -e b -b 115200 /dev/ttyUSB0"
 
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
