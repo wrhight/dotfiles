@@ -6,7 +6,7 @@ setopt appendhistory sharehistory incappendhistory autocd extendedglob nomatch n
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/whight/.zshrc'
+zstyle :compinstall filename '$HOME/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -38,7 +38,7 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 
 stty -ixon
 
-alias config='/usr/bin/git --git-dir=/home/whight/.cfg/ --work-tree=/home/whight'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
