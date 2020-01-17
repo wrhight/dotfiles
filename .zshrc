@@ -41,5 +41,17 @@ stty -ixon
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 
+n()
+{
+    nnn "$@"
+
+    NNN_TMPFILE=$HOME/.config/nnn/.lastd
+
+    if [ -f $NNN_TMPFILE ]; then
+        . $NNN_TMPFILE
+        rm $NNN_TMPFILE
+    fi
+}
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
