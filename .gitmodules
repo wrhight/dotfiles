@@ -7,12 +7,6 @@
 [submodule ".vim/pack/plugins/start/vim-fugitive"]
 	path = .vim/pack/plugins/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule ".vim/pack/plugins/start/vim-airline"]
-	path = .vim/pack/plugins/start/vim-airline
-	url = https://github.com/vim-airline/vim-airline.git
-[submodule ".vim/pack/plugins/start/vim-airline-themes"]
-	path = .vim/pack/plugins/start/vim-airline-themes
-	url = https://github.com/vim-airline/vim-airline-themes.git
 [submodule ".vim/pack/plugins/start/vim-obsession"]
 	path = .vim/pack/plugins/start/vim-obsession
 	url = https://github.com/tpope/vim-obsession.git
@@ -40,3 +34,30 @@
 [submodule ".vim/pack/plugins/start/rust.vim"]
 	path = .vim/pack/plugins/start/rust.vim
 	url = https://github.com/rust-lang/rust.vim
+[submodule ".git-fuzzy"]
+	path = .git-fuzzy
+	url = https://github.com/bigH/git-fuzzy.git
+[submodule ".vim/pack/plugins/start/tcomment_vim"]
+	path = .vim/pack/plugins/start/tcomment_vim
+	url = https://github.com/tomtom/tcomment_vim
+[submodule ".vim/pack/plugins/start/lightline.vim"]
+	path = .vim/pack/plugins/start/lightline.vim
+	url = https://github.com/itchyny/lightline.vim
+[submodule ".vim/pack/plugins/start/vista.vim"]
+	path = .vim/pack/plugins/start/vista.vim
+	url = https://github.com/liuchengxu/vista.vim.git
+[submodule ".vim/pack/plugins/start/coc.nvim"]
+	path = .vim/pack/plugins/start/coc.nvim
+	url = https://github.com/neoclide/coc.nvim.git
+[submodule ".vim/pack/plugins/start/tabnine-vim"]
+	path = .vim/pack/plugins/start/tabnine-vim
+	url = https://github.com/codota/tabnine-vim
+[submodule ".vim/pack/plugins/start/vim-cpp-enhanced-highlight"]
+	path = .vim/pack/plugins/start/vim-cpp-enhanced-highlight
+	url = https://github.com/octol/vim-cpp-enhanced-highlight.git
+[submodule ".vim/pack/plugins/start/lightline-ale"]
+	path = .vim/pack/plugins/start/lightline-ale
+	url = https://github.com/maximbaz/lightline-ale.git
+[submodule ".vim/pack/plugins/start/vim-cpp-modern"]
+	path = .vim/pack/plugins/start/vim-cpp-modern
+	url = https://github.com/bfrg/vim-cpp-modern.git
