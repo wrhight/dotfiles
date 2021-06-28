@@ -3,6 +3,7 @@
 set showmatch
 set cursorline
 set mouse=a
+set ttymouse=sgr
 set laststatus=2
 set noshowmode
 set ruler
