@@ -1,3 +1,4 @@
+let g:ale_set_balloons = 1
 " General Settings
 " some of this is vim-airline specific
 set showmatch
@@ -39,20 +40,7 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
-" Colors
-" set Vim-specific sequences for RGB colors
-if $TERM =~# '256color' && ( $TERM =~# '^screen'  || $TERM =~# '^tmux' )
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-endif
-
 syntax enable
-" points to current base16-shell profile, requires 256 color supported terminal
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-endif
 
 " Commands
 nnoremap <C-\> :Vista!!<CR>
@@ -66,7 +54,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nnoremap <Leader>b :Buffers<cr>
 nnoremap <Leader>s :BLines<cr>
 
-nnoremap <silent> <Leader>gr :Rg expand("<cword>")
+nnoremap <silent> <Leader>gr :Rg <C-R><C-W><CR>
 
 command W w !sudo tee % > /dev/null
 
@@ -87,14 +75,64 @@ set statusline+=%{NearestMethodOrFunction()}
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " Plugins
-packadd termdebug
+call plug#begin('~/.vim/plugged')
+" Plugin outside ~/.vim/plugged with post-update hook
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'dense-analysis/ale'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-obsession'
+Plug 'peterhoeg/vim-qml'
+Plug 'junegunn/fzf.vim'
+Plug 'chriskempson/base16-vim'
+Plug 'rust-lang/rust.vim'
+Plug 'tomtom/tcomment_vim'
+Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
+Plug 'liuchengxu/vista.vim'
+Plug 'codota/tabnine-vim'
+Plug 'bfrg/vim-cpp-modern'
+if has('nvim') || has('patch-8.0.902')
+    Plug 'mhinz/vim-signify'
+else
+    Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+endif
 
-" FZF
+call plug#end()
+"
+"
+" Colors
+" set Vim-specific sequences for RGB colors
+if $TERM =~# '256color' && ( $TERM =~# '^screen'  || $TERM =~# '^tmux' )
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
+" points to current base16-shell profile, requires 256 color supported terminal
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+endif
+
+
+" fzf.vim
+"
 set rtp+=~/.fzf
 command! -bang -nargs=? -complete=dir Files
             \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+command! -bang -nargs=* Rg
+            \ call fzf#vim#grep(
+            \   "rg --column --line-number --no-heading --color=always --smart-case -g '!tags' -g '!tools' -g '!.build/*' -g '!_Document/*' -g '!tests/*' -g '!TestGui/*' ".shellescape(<q-args>), 1,
+            \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?')
+            \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%'),
+            \   <bang>0)
+
+
+" Preview window on the upper side of the window with 40% height,
+" ctrl-/ to toggle hidden
+let g:fzf_preview_window = ['up:40%', 'ctrl-/']
 
 " Lightline
+"
 let g:lightline = {
             \ 'colorscheme': 'wombat',
             \ 'active': {
@@ -103,7 +141,7 @@ let g:lightline = {
             \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
             \            [ 'lineinfo' ],
             \            [ 'percent' ],
-            \            [ 'fileformat', 'fileencoding', 'filetype'] ],
+            \            [ 'fugitive', 'fileformat', 'fileencoding', 'filetype' ] ],
             \ },
             \ 'component_expand': {
             \  'linter_checking': 'lightline#ale#checking',
@@ -120,33 +158,33 @@ let g:lightline = {
             \     'linter_ok': 'right',
             \ },
             \ 'component_function': {
-            \   'method': 'NearestMethodOrFunction'
+            \   'method': 'NearestMethodOrFunction',
+            \   'fugitive': 'FugitiveHead'
             \ },
             \ }
 
 " Vista.vim
+"
 let g:vista_default_executive = 'ale'
 let g:vista#renderer#enable_icon = 0
+let g:vista_close_on_jump = 1
+let g:vista_fzf_preview = ['up:50%']
+let g:vista_sidebar_open_cmd = '50vsplit'
 
 " vim-cpp-modern
+"
 " Enable highlighting of C++11 attributes
 let g:cpp_attributes_highlight = 1
 
 " Highlight struct/class member variables (affects both C and C++ files)
 let g:cpp_member_highlight = 1
 
-" fzf
-" command! -bang -nargs=* Rg
-"             \ call fzf#vim#grep(
-"             \   "rg --column --line-number --no-heading --color=always --smart-case -g '!tags' -g '!tools' -g '!.build/*' -g '!_Document/*' -g '!tests/*' -g '!TestGui/*' -g '!DisplayService/Hawk/*' -g '!DisplayService/Osprey/*' -g '!DisplayService//*' -g '!DisplayService//*' ".shellescape(<q-args>), 1,
-"             \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-"             \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-"             \   <bang>0)
-
 " Ale
+"
 let g:ale_linters = {
-            \ 'cpp': ['clangd', 'clangtidy', 'clang-check', 'cppcheck'],
-            \ 'c': ['clangd', 'clangtidy', 'cppcheck'],
+            \ 'cpp': ['clangd'],
+            \ 'c': ['clangd'],
+            \ 'python': [],
             \}
 "
 " let g:ale_fixers = {
@@ -159,24 +197,5 @@ let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_save = 1
 
-let g:ale_c_cppcheck_options = '--enable=warning,style,performance,information,missingInclude --std=c99 --platform=unix32'
-let g:ale_cpp_cppcheck_options = '--enable=warning,style,performance,information,missingInclude --std=c++14 --platform=unix32'
-
-let g:ale_c_build_dir = '.build'
-
-" Eagle GCC linting
-let g:ale_cpp_gcc_executable = '/opt/raptor/dev-eagle-v0003-20210506/sysroots/i686-raptorsdk-linux/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-g++'
-let g:ale_c_gcc_executable = '/opt/raptor/dev-eagle-v0003-20210506/sysroots/i686-raptorsdk-linux/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-gcc'
-
-" Osprey GCC linting
-" let g:ale_cpp_gcc_executable = '/opt/raptor/dev-osprey-v0003-20190304/sysroots/i686-raptorsdk-linux/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-g++'
-
 let g:ale_c_parse_compile_commands = 1
-
-" Load all plugins now.
-" Plugins need to be added to runtimepath before helptags can be generated.
-packloadall
-" Load all of the helptags now, after plugins have been loaded.
-" All messages and errors will be ignored.
-silent! helptags ALL
 

@@ -11,6 +11,7 @@ zstyle :compinstall filename '$HOME/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+fpath+=$HOME/.zplugins/pure
 
 autoload -U promptinit; promptinit
 prompt pure
