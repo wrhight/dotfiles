@@ -91,6 +91,8 @@ Plug 'maximbaz/lightline-ale'
 Plug 'liuchengxu/vista.vim'
 Plug 'codota/tabnine-vim'
 Plug 'bfrg/vim-cpp-modern'
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'thosakwe/vim-flutter'
 if has('nvim') || has('patch-8.0.902')
     Plug 'mhinz/vim-signify'
 else
@@ -119,13 +121,30 @@ endif
 set rtp+=~/.fzf
 command! -bang -nargs=? -complete=dir Files
             \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+
 command! -bang -nargs=* Rg
             \ call fzf#vim#grep(
             \   "rg --column --line-number --no-heading --color=always --smart-case -g '!tags' -g '!tools' -g '!.build/*' -g '!_Document/*' -g '!tests/*' -g '!TestGui/*' ".shellescape(<q-args>), 1,
-            \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?')
-            \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%'),
-            \   <bang>0)
+            \   fzf#vim#with_preview(), <bang>0)
 
+command! -bang -nargs=* Rge
+            \ call fzf#vim#grep(
+            \   "rg --column --line-number --no-heading --color=always --smart-case -g '!tags' -g '!tools' -g '!.build/*' -g '!_Document/*' -g '!tests/*' -g '!TestGui/*' -g '!DisplayService/Osprey/*' -g '!DisplayService/Hawk/*' ".shellescape(<q-args>), 1,
+            \   fzf#vim#with_preview(), <bang>0)
+
+command! -bang -nargs=* Rgo
+            \ call fzf#vim#grep(
+            \   "rg --column --line-number --no-heading --color=always --smart-case -g '!tags' -g '!tools' -g '!.build/*' -g '!_Document/*' -g '!tests/*' -g '!TestGui/*' -g '!DisplayService/Eagle/*' -g '!DisplayService/Hawk/*' ".shellescape(<q-args>), 1,
+            \   fzf#vim#with_preview(), <bang>0)
+
+command! -bang -nargs=* Rgh
+            \ call fzf#vim#grep(
+            \   "rg --column --line-number --no-heading --color=always --smart-case -g '!tags' -g '!tools' -g '!.build/*' -g '!_Document/*' -g '!tests/*' -g '!TestGui/*' -g '!DisplayService/Eagle/*' -g '!DisplayService/Osprey/*' ".shellescape(<q-args>), 1,
+            \   fzf#vim#with_preview(), <bang>0)
+
+" call fzf#vim#grep("rg --column --line-number --no-heading --color=always
+" --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_pre
+" view(), <bang>0)
 
 " Preview window on the upper side of the window with 40% height,
 " ctrl-/ to toggle hidden
@@ -198,4 +217,11 @@ let g:ale_lint_on_enter = 1
 let g:ale_lint_on_save = 1
 
 let g:ale_c_parse_compile_commands = 1
+
+" Dart config
+"
+
+
+
+
 
