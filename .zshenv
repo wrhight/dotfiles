@@ -1,4 +1,4 @@
-export EDITOR=vim
+export EDITOR=nvim
 export KEYTIMEOUT=1
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow -g '!.git/*' -g '!.cfg/*' -g '!.wine/*' -g '!.npm/*' -g '!.cache/*'"
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND

@@ -89,7 +89,6 @@ Plug 'tomtom/tcomment_vim'
 Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'liuchengxu/vista.vim'
-Plug 'codota/tabnine-vim'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'thosakwe/vim-flutter'
@@ -99,16 +98,31 @@ else
     Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
 endif
 
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+
+if has('win32') || has('win64')
+  Plug 'tbodt/deoplete-tabnine', { 'do': 'powershell.exe .\install.ps1' }
+else
+  Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+endif
+
 call plug#end()
 "
 "
 " Colors
 " set Vim-specific sequences for RGB colors
-if $TERM =~# '256color' && ( $TERM =~# '^screen'  || $TERM =~# '^tmux' )
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-endif
+" if $TERM =~# '256color' && ( $TERM =~# '^screen'  || $TERM =~# '^tmux' )
+"     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"     set termguicolors
+" endif
 " points to current base16-shell profile, requires 256 color supported terminal
 if filereadable(expand("~/.vimrc_background"))
     let base16colorspace=256
@@ -206,17 +220,30 @@ let g:ale_linters = {
             \ 'python': [],
             \}
 "
-" let g:ale_fixers = {
-"             \   'rust': ['rustfmt'],
-"             \}
-"
+let g:ale_fixers = {
+            \ 'cpp': ['clangtidy', 'trim_whitespace'],
+            \ 'c': ['clangtidy', 'trim_whitespace'],
+            \}
+
+
+let g:ale_linters_explicit = 1
 let g:ale_set_highlights = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_save = 1
+let g:ale_lsp_show_message_severity = 'information'
+let g:ale_lsp_suggestions = 1
 
 let g:ale_c_parse_compile_commands = 1
+let g:ale_cpp_clangd_options = "--background-index -j 8 --clang-tidy"
+
+" Deoplete
+"
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('sources', {
+\ '_': ['ale', 'tabnine'],
+\})
 
 " Dart config
 "

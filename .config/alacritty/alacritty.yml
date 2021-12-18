@@ -1,3 +1,9 @@
+window:
+    decorations: none
+
+mouse:
+    hide_when_typing: true
+
 font:
     normal:
         family: "Iosevka Term"
