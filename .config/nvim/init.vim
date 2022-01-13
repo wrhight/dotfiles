@@ -218,7 +218,7 @@ for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities {
     on_attach = on_attach,
     flags = {
-      debounce_text_changes = 1000,
+      debounce_text_changes = 150,
     }
   })
 end

@@ -21,7 +21,9 @@ if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-eval "$(zoxide init zsh)"
+if [ "$(command -v zoxide)" ]; then
+    eval "$(zoxide init zsh)"
+fi
 
 # Keys
 autoload -U up-line-or-beginning-search
