@@ -143,7 +143,7 @@ let g:fzf_preview_window = ['up:40%', 'ctrl-/']
 " nvim-base16
 "
 lua << EOF
-vim.cmd('colorscheme base16-schemer-dark')
+vim.cmd('colorscheme base16-default-dark')
 EOF
 
 " Lightline

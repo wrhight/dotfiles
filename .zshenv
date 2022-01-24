@@ -1,4 +1,3 @@
-export EDITOR=nvim
 export KEYTIMEOUT=1
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow -g '!.git/*' -g '!.cfg/*' -g '!.wine/*' -g '!.npm/*' -g '!.cache/*'"
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
@@ -7,7 +6,7 @@ export PATH=$PATH:~/.cargo/bin
 export PATH="/home/$USER/.git-fuzzy/bin:/home/$USER/.local/bin:$PATH"
 export MAKEFLAGS="-j$(expr $(nproc) \+ 1)"
 export LC_ALL=en_US.UTF-8
-export EDITOR=/usr/bin/vim
+export EDITOR=/usr/bin/nvim
 export QT_QPA_PLATFORMTHEME=gtk2
 export BROWSER="/usr/local/bin/chromium"
 export XDG_DATA_HOME=$HOME/.local/share
