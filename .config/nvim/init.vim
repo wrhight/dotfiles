@@ -9,6 +9,7 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 set splitbelow
 set splitright
 set updatetime=100
+set lazyredraw
 
 " Columns
 set colorcolumn=80
@@ -24,6 +25,7 @@ set smartindent
 set expandtab
 set shiftwidth=4
 set tabstop=4
+set laststatus=0
 
 " Commands
 nnoremap <C-\> :Vista!!<CR>
@@ -58,10 +60,12 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-commentary'
 Plug 'peterhoeg/vim-qml'
 Plug 'junegunn/fzf.vim'
-Plug 'fnune/base16-vim'
+" Plug 'jacoborus/tender.vim'
+" Plug 'fnune/base16-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'daviesjamie/vim-base16-lightline'
 Plug 'liuchengxu/vista.vim'
+Plug 'fidian/hexmode'
 Plug 'bfrg/vim-cpp-modern'
 
 " Neovim specific
@@ -69,6 +73,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'RRethy/nvim-base16'
+Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
 
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'} " Snippets
@@ -82,6 +87,10 @@ call plug#end()
 "
 "
 " Colors
+if (has("termguicolors"))
+ set termguicolors
+endif
+" let base16colorspace=256
 " set Vim-specific sequences for RGB colors
 " if $TERM =~# '256color' && ( $TERM =~# '^screen'  || $TERM =~# '^tmux' )
 "     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -89,10 +98,9 @@ call plug#end()
 "     set termguicolors
 " endif
 " points to current base16-shell profile, requires 256 color supported terminal
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-endif
+" if filereadable(expand("~/.vimrc_background"))
+"     source ~/.vimrc_background
+" endif
 
 "
 " vim-cpp-modern
@@ -143,7 +151,7 @@ let g:fzf_preview_window = ['up:40%', 'ctrl-/']
 " nvim-base16
 "
 lua << EOF
-vim.cmd('colorscheme base16-default-dark')
+vim.cmd('colorscheme base16-bright')
 EOF
 
 " Lightline
