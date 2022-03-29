@@ -67,8 +67,8 @@ Plug 'joshdick/onedark.vim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons' " for lualine
 Plug 'neovim/nvim-lspconfig'
+Plug 'simrat39/rust-tools.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
@@ -206,16 +206,14 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'clangd', 'rust_analyzer' }
+local servers = { 'clangd' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities {
     on_attach = on_attach,
-    handlers = handlers,
     flags = {
       debounce_text_changes = 150,
     }
   })
-
 end
 
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
@@ -225,6 +223,17 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
+-- rust is a special child
+local opts = {
+    server = coq.lsp_ensure_capabilities {
+        on_attach = on_attach,
+        flags = {
+            debounce_text_changes = 150,
+        }
+    }
+}
+
+require('rust-tools').setup(opts)
 EOF
 
 " gitsigns
