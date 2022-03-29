@@ -19,3 +19,4 @@ export LESS=-RS
 #export QT_QPA_PLATFORM=wayland
 #export QT_WAYLAND_FORCE_DPI=physical
 
+. "$HOME/.cargo/env"

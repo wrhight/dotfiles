@@ -8,8 +8,6 @@ set showmatch
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 set splitbelow
 set splitright
-set updatetime=100
-set lazyredraw
 
 " Columns
 set colorcolumn=80
@@ -20,12 +18,12 @@ set ignorecase
 set smartcase
 
 " Tabs
-set nowrap
+set breakindent
+set updatetime=100
 set smartindent
 set expandtab
 set shiftwidth=4
 set tabstop=4
-set laststatus=0
 
 " Commands
 nnoremap <C-\> :Vista!!<CR>
@@ -57,22 +55,22 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-commentary'
 Plug 'peterhoeg/vim-qml'
 Plug 'junegunn/fzf.vim'
-" Plug 'jacoborus/tender.vim'
-" Plug 'fnune/base16-vim'
-Plug 'itchyny/lightline.vim'
-Plug 'daviesjamie/vim-base16-lightline'
 Plug 'liuchengxu/vista.vim'
 Plug 'fidian/hexmode'
 Plug 'bfrg/vim-cpp-modern'
+Plug 'joshdick/onedark.vim'
+" Plug 'RRethy/nvim-base16'
 
 " Neovim specific
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'numToStr/Comment.nvim'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons' " for lualine
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'RRethy/nvim-base16'
 Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
 
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
@@ -87,20 +85,30 @@ call plug#end()
 "
 "
 " Colors
-if (has("termguicolors"))
- set termguicolors
+if (has("nvim"))
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
-" let base16colorspace=256
-" set Vim-specific sequences for RGB colors
-" if $TERM =~# '256color' && ( $TERM =~# '^screen'  || $TERM =~# '^tmux' )
-"     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-"     set termguicolors
-" endif
-" points to current base16-shell profile, requires 256 color supported terminal
-" if filereadable(expand("~/.vimrc_background"))
-"     source ~/.vimrc_background
-" endif
+if (has("termguicolors"))
+    set termguicolors
+endif
+
+syntax on
+autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+autocmd ColorScheme * highlight PMenu ctermbg=NONE guibg=NONE
+colorscheme onedark
+
+" lualine
+lua << END
+require('lualine').setup {
+    options = {
+        theme = 'onedark',
+        icons_enabled = false,
+    }
+}
+END
+
+" commentary
+lua require('Comment').setup()
 
 "
 " vim-cpp-modern
@@ -147,29 +155,6 @@ command! -bang -nargs=* Rgh
 " Preview window on the upper side of the window with 40% height,
 " ctrl-/ to toggle hidden
 let g:fzf_preview_window = ['up:40%', 'ctrl-/']
-"
-" nvim-base16
-"
-lua << EOF
-vim.cmd('colorscheme base16-bright')
-EOF
-
-" Lightline
-"
-let g:lightline = {
-            \ 'colorscheme' : 'base16',
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'readonly', 'filename', 'modified' ] ],
-            \   'right': [
-            \            [ 'lineinfo' ],
-            \            [ 'percent' ],
-            \            [ 'fugitive', 'fileformat', 'fileencoding', 'filetype' ] ],
-            \ },
-            \ 'component_function': {
-            \   'fugitive': 'FugitiveHead'
-            \ },
-            \ }
 
 " Vista.vim
 "
@@ -221,15 +206,25 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'clangd' }
+local servers = { 'clangd', 'rust_analyzer' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities {
     on_attach = on_attach,
+    handlers = handlers,
     flags = {
       debounce_text_changes = 150,
     }
   })
+
 end
+
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or "rounded"
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
+
 EOF
 
 " gitsigns
@@ -238,4 +233,10 @@ EOF
 lua << EOF
 require('gitsigns').setup()
 EOF
+
+" IDK ANYMORE
+augroup highlight_yank
+    autocmd!
+    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=250}
+augroup END
 
