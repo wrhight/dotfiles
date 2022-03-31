@@ -3,11 +3,16 @@
 ## Dependencies
 ###### found in your official distribution repo
 
-* neovim 6+ (may need to add unofficial repos or build it yourself)
-* vim 8.0+
+* neovim 6.1+ (may need to add unofficial repos or build it yourself)
+* vim 8.2+
 * tmux 2.9+
 * terminal w/ 256 color support (alacritty recommended)
 * zsh
+
+### Optional
+
+* clangd for C++ LSP
+* rust-analysis for rust LSP
 
 ## Cloning
 ###### cloning this directly is not recommended unless you are me. fork it!
@@ -37,6 +42,7 @@ config submodule update
 
 ## Install
 * run neovim to install fzf and neovim plugins: `:PlugInstall`
+    * after COQ is installed for neovim, run `:COQdeps`
 * run tmux and install the plugins `ctrl+a I`
 
 ## Maintaining plugins

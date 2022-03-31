@@ -1,0 +1,38 @@
+---
+CompileFlags:
+  Remove: -mthumb-interwork
+
+Diagnostics:
+  Suppress: -Wcompound-token-split-by-macro
+  ClangTidy:
+    CheckOptions:
+      readability-identifier-naming.VariableCase: CamelCase
+      modernize-use-auto.RemoveStars: true
+    Add: [-*, clang-analyzer*, modernize*, bugprone*, performance*, readability*, google*, cppcoreguidelines*]
+    Remove: [bugprone-easily-swappable-parameters
+            ,modernize-use-trailing-return-type
+            ,modernize-use-nullptr
+            ,modernize-avoid-c-arrays
+            ,readability-identifier-naming
+            ,readability-uppercase-literal-suffix
+            ,readability-magic-numbers
+            ,readability-function-cognitive-complexity
+            ,readability-implicit-bool-conversion
+            ,readability-convert-member-functions-to-static
+            ,readability-redundant-access-specifiers
+            ,readability-avoid-const-params-in-decls
+            ,cppcoreguidelines-avoid-magic-numbers
+            ,cppcoreguidelines-non-private-member-variables-in-classes
+            ,cppcoreguidelines-owning-memory
+            ,cppcoreguidelines-pro-type-vararg
+            ,cppcoreguidelines-pro-bounds-array-to-pointer-decay
+            ,cppcoreguidelines-pro-bounds-pointer-arithmetic
+            ,cppcoreguidelines-avoid-c-arrays
+            ,cppcoreguidelines-avoid-non-const-global-variables
+            ,cppcoreguidelines-pro-type-union-access
+            ,google-build-using-namespace
+            ,google-readability-todo
+            ,cppcoreguidelines-macro-usage
+            ]
+---
+
