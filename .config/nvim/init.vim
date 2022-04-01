@@ -26,8 +26,6 @@ set shiftwidth=4
 set tabstop=4
 
 " Commands
-nnoremap <C-\> :Vista!!<CR>
-nnoremap <Leader>vf :Vista finder fzf<CR>
 command W SudaWrite
 
 if executable("rg")
@@ -69,6 +67,7 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'kyazdani42/nvim-tree.lua'
 
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'} " Snippets
@@ -178,6 +177,11 @@ nnoremap <leader>gs <cmd>Telescope grep_string<cr>
 nnoremap <leader>gr <cmd>Telescope lsp_references<cr>
 nnoremap <leader>rr <cmd>Telescope resume<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" nvim-tree
+"
+nnoremap <C-\> :NvimTreeToggle<CR>
+lua require'nvim-tree'.setup()
 
 " Vista.vim
 "
