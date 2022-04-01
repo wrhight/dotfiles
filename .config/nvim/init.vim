@@ -35,7 +35,7 @@ nnoremap <Leader>s :BLines<cr>
 
 nnoremap <silent> <Leader>gr :Rg <C-R><C-W><CR>
 
-command W w !sudo tee % > /dev/null
+command W SudaWrite
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --smart-case\ --hidden\ --follow\ --ignore
@@ -61,6 +61,7 @@ Plug 'liuchengxu/vista.vim'
 Plug 'fidian/hexmode'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'joshdick/onedark.vim'
+Plug 'lambdalisue/suda.vim'
 " Plug 'RRethy/nvim-base16'
 
 " Neovim specific
