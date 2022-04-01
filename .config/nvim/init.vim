@@ -28,13 +28,6 @@ set tabstop=4
 " Commands
 nnoremap <C-\> :Vista!!<CR>
 nnoremap <Leader>vf :Vista finder fzf<CR>
-nnoremap ; :Files<cr>
-
-nnoremap <Leader>b :Buffers<cr>
-nnoremap <Leader>s :BLines<cr>
-
-nnoremap <silent> <Leader>gr :Rg <C-R><C-W><CR>
-
 command W SudaWrite
 
 if executable("rg")
@@ -68,11 +61,14 @@ Plug 'lambdalisue/suda.vim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'neovim/nvim-lspconfig'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'} " Snippets
@@ -156,6 +152,32 @@ command! -bang -nargs=* Rgh
 " Preview window on the upper side of the window with 40% height,
 " ctrl-/ to toggle hidden
 let g:fzf_preview_window = ['up:40%', 'ctrl-/']
+
+" Telescope
+" 
+lua << EOF
+require('telescope').load_extension('fzf')
+require('telescope').setup({
+defaults = {
+    layout_strategy='vertical',
+    mappings = {
+        i = {
+            ["<C-j>"] = "move_selection_next",
+            ["<C-k>"] = "move_selection_previous",
+        },
+    }
+},
+})
+EOF
+
+" Find files using Telescope command-line sugar.
+nnoremap ; <cmd>Telescope find_files<cr>
+nnoremap <leader>b <cmd>Telescope buffers<cr>
+nnoremap <leader>ss <cmd>Telescope live_grep<cr>
+nnoremap <leader>gs <cmd>Telescope grep_string<cr>
+nnoremap <leader>gr <cmd>Telescope lsp_references<cr>
+nnoremap <leader>rr <cmd>Telescope resume<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Vista.vim
 "
