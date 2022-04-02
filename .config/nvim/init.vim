@@ -25,6 +25,9 @@ set expandtab
 set shiftwidth=4
 set tabstop=4
 
+" For polyglot
+set nocompatible
+
 " Commands
 command W SudaWrite
 
@@ -46,13 +49,13 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
-Plug 'peterhoeg/vim-qml'
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim'
 Plug 'fidian/hexmode'
-Plug 'bfrg/vim-cpp-modern'
+" Plug 'bfrg/vim-cpp-modern'
 Plug 'joshdick/onedark.vim'
 Plug 'lambdalisue/suda.vim'
+Plug 'sheerun/vim-polyglot'
 " Plug 'RRethy/nvim-base16'
 
 " Neovim specific
@@ -110,13 +113,13 @@ lua require('Comment').setup()
 " vim-cpp-modern
 "
 " Enable highlighting of C++11 attributes
-let g:cpp_attributes_highlight = 1
+" let g:cpp_attributes_highlight = 1
 
 " Highlight struct/class member variables (affects both C and C++ files)
-let g:cpp_member_highlight = 1
+" let g:cpp_member_highlight = 1
 
 " Disable function highlighting (affects both C and C++ files)
-let g:cpp_function_highlight = 1
+" let g:cpp_function_highlight = 1
 
 " fzf.vim
 "
@@ -180,7 +183,7 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " nvim-tree
 "
-nnoremap <C-\> :NvimTreeToggle<CR>
+nnoremap <C-\> :NvimTreeFindFileToggle<CR>
 lua require'nvim-tree'.setup()
 
 " Vista.vim
