@@ -49,14 +49,12 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
-Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-repeat' " for lightspeed
 Plug 'liuchengxu/vista.vim'
 Plug 'fidian/hexmode'
-" Plug 'bfrg/vim-cpp-modern'
 Plug 'joshdick/onedark.vim'
 Plug 'lambdalisue/suda.vim'
 Plug 'sheerun/vim-polyglot'
-" Plug 'RRethy/nvim-base16'
 
 " Neovim specific
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -71,6 +69,8 @@ Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'ggandor/lightspeed.nvim'
+
 
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'} " Snippets
@@ -109,52 +109,6 @@ END
 " commentary
 lua require('Comment').setup()
 
-"
-" vim-cpp-modern
-"
-" Enable highlighting of C++11 attributes
-" let g:cpp_attributes_highlight = 1
-
-" Highlight struct/class member variables (affects both C and C++ files)
-" let g:cpp_member_highlight = 1
-
-" Disable function highlighting (affects both C and C++ files)
-" let g:cpp_function_highlight = 1
-
-" fzf.vim
-"
-set rtp+=~/.fzf
-command! -bang -nargs=? -complete=dir Files
-            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
-
-command! -bang -nargs=* Rg
-            \ call fzf#vim#grep(
-            \   "rg --column --line-number --no-heading --color=always --smart-case -g '!tags' -g '!tools' -g '!.build/*' -g '!_Document/*' -g '!tests/*' -g '!TestGui/*' ".shellescape(<q-args>), 1,
-            \   fzf#vim#with_preview(), <bang>0)
-
-command! -bang -nargs=* Rge
-            \ call fzf#vim#grep(
-            \   "rg --column --line-number --no-heading --color=always --smart-case -g '!tags' -g '!tools' -g '!.build/*' -g '!_Document/*' -g '!tests/*' -g '!TestGui/*' -g '!DisplayService/Osprey/*' -g '!DisplayService/Hawk/*' ".shellescape(<q-args>), 1,
-            \   fzf#vim#with_preview(), <bang>0)
-
-command! -bang -nargs=* Rgo
-            \ call fzf#vim#grep(
-            \   "rg --column --line-number --no-heading --color=always --smart-case -g '!tags' -g '!tools' -g '!.build/*' -g '!_Document/*' -g '!tests/*' -g '!TestGui/*' -g '!DisplayService/Eagle/*' -g '!DisplayService/Hawk/*' ".shellescape(<q-args>), 1,
-            \   fzf#vim#with_preview(), <bang>0)
-
-command! -bang -nargs=* Rgh
-            \ call fzf#vim#grep(
-            \   "rg --column --line-number --no-heading --color=always --smart-case -g '!tags' -g '!tools' -g '!.build/*' -g '!_Document/*' -g '!tests/*' -g '!TestGui/*' -g '!DisplayService/Eagle/*' -g '!DisplayService/Osprey/*' ".shellescape(<q-args>), 1,
-            \   fzf#vim#with_preview(), <bang>0)
-
-" call fzf#vim#grep("rg --column --line-number --no-heading --color=always
-" --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_pre
-" view(), <bang>0)
-
-" Preview window on the upper side of the window with 40% height,
-" ctrl-/ to toggle hidden
-let g:fzf_preview_window = ['up:40%', 'ctrl-/']
-
 " Telescope
 " 
 lua << EOF
@@ -173,13 +127,16 @@ defaults = {
 EOF
 
 " Find files using Telescope command-line sugar.
-nnoremap ; <cmd>Telescope find_files<cr>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>b <cmd>Telescope buffers<cr>
 nnoremap <leader>ss <cmd>Telescope live_grep<cr>
 nnoremap <leader>gs <cmd>Telescope grep_string<cr>
 nnoremap <leader>gr <cmd>Telescope lsp_references<cr>
 nnoremap <leader>rr <cmd>Telescope resume<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+command -nargs=* Rg :call luaeval('require("telescope.builtin").grep_string({search=_A})', expand('<args>'))
+" command -nargs=* Rg :Telescope grep_string search=<args>
 
 " nvim-tree
 "
