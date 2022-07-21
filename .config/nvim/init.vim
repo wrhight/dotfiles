@@ -8,6 +8,7 @@ set showmatch
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 set splitbelow
 set splitright
+set laststatus=3
 
 " Columns
 set colorcolumn=80
@@ -47,6 +48,7 @@ endif
 call plug#begin(stdpath('data') . '/plugged')
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat' " for lightspeed
@@ -70,7 +72,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'ggandor/lightspeed.nvim'
-
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'} " Snippets

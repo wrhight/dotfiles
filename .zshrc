@@ -76,5 +76,8 @@ n()
     fi
 }
 
+# For delta
+compdef _gnu_generic delta
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

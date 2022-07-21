@@ -1,6 +1,7 @@
 ---
 CompileFlags:
   Remove: -mthumb-interwork
+  Add: -ferror-limit=0
 
 Diagnostics:
   Suppress: -Wcompound-token-split-by-macro
@@ -14,6 +15,7 @@ Diagnostics:
             ,modernize-use-nullptr
             ,modernize-avoid-c-arrays
             ,readability-identifier-naming
+            ,readability-identifier-length
             ,readability-uppercase-literal-suffix
             ,readability-magic-numbers
             ,readability-function-cognitive-complexity
@@ -21,6 +23,7 @@ Diagnostics:
             ,readability-convert-member-functions-to-static
             ,readability-redundant-access-specifiers
             ,readability-avoid-const-params-in-decls
+            ,readability-isolate-declaration
             ,cppcoreguidelines-avoid-magic-numbers
             ,cppcoreguidelines-non-private-member-variables-in-classes
             ,cppcoreguidelines-owning-memory
