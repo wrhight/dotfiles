@@ -57,6 +57,8 @@ Plug 'fidian/hexmode'
 Plug 'joshdick/onedark.vim'
 Plug 'lambdalisue/suda.vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'lervag/vimtex'
+Plug 'fatih/vim-go'
 
 " Neovim specific
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -195,7 +197,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'clangd' }
+local servers = { 'clangd', 'gopls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities {
     on_attach = on_attach,
@@ -231,6 +233,16 @@ EOF
 lua << EOF
 require('gitsigns').setup()
 EOF
+
+" vimtex
+"
+" Viewer options: One may configure the viewer either by specifying a built-in
+" viewer method:
+let g:vimtex_view_method = 'zathura'
+
+" vim-go
+"
+let g:go_gopls_enabled = 0
 
 " IDK ANYMORE
 augroup highlight_yank

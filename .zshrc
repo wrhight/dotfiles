@@ -46,6 +46,10 @@ fi
 [[ -n ${key[PageUp]} ]] && bindkey "${key[PageUp]}" up-line-or-beginning-search
 [[ -n ${key[PageDown]} ]] && bindkey "${key[PageDown]}" down-line-or-beginning-search
 
+# could be considered heresy
+alias vim="nvim"
+export DIFFPROG="nvim -d $1"
+
 # better faster stronger
 alias spm='sudo pacman'
 alias pc="picocom -e b -b 115200 $1"
