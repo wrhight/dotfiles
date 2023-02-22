@@ -8,10 +8,15 @@ export MAKEFLAGS="-j$(expr $(nproc) \+ 1)"
 export LC_ALL=en_US.UTF-8
 export EDITOR=/usr/bin/nvim
 export QT_QPA_PLATFORMTHEME=gtk2
-export BROWSER="/usr/local/bin/chromium"
+export BROWSER="/usr/local/bin/firefox"
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export SDL_IM_MODULE=fcitx
+export GLFW_IM_MODULE=ibus
 
 export BAT_THEME="base16"
 export LESS=-RS

@@ -46,6 +46,7 @@ fi
 [[ -n ${key[PageUp]} ]] && bindkey "${key[PageUp]}" up-line-or-beginning-search
 [[ -n ${key[PageDown]} ]] && bindkey "${key[PageDown]}" down-line-or-beginning-search
 
+alias hx="helix"
 # could be considered heresy
 alias vim="nvim"
 export DIFFPROG="nvim -d $1"
@@ -63,8 +64,11 @@ alias pacr='yay -Qeq | fzf -m --preview 'yay -Qi {1}' | xargs -ro yay -Rs'
 # For dotfile repo
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        source "$BASE16_SHELL/profile_helper.sh"
+base16_synth-midnight-dark
 
 stty -ixon
 

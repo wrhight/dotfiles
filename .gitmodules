@@ -7,3 +7,7 @@
 [submodule ".zplugins/pure"]
 	path = .zplugins/pure
 	url = https://github.com/sindresorhus/pure.git
+[submodule "/home/wrh/.config/base16-shell"]
+	path = /home/wrh/.config/base16-shell
+	url = https://github.com/tinted-theming/base16-shell.git
+
