@@ -62,7 +62,7 @@ alias pacs='yay -Slq | fzf -m --preview 'yay -Si {1}'| xargs -ro yay -S'
 alias pacr='yay -Qeq | fzf -m --preview 'yay -Qi {1}' | xargs -ro yay -Rs'
 
 # For dotfile repo
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias config='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
