@@ -157,7 +157,7 @@ let g:vista_sidebar_open_cmd = '50vsplit'
 
 " lspconfig
 "
-let g:coq_settings = { 'auto_start': 'shut-up' }
+" let g:coq_settings = { 'auto_start': 'shut-up' }
 lua << EOF
 local nvim_lsp = require('lspconfig')
 local coq = require('coq')
