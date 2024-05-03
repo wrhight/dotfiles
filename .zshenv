@@ -2,11 +2,13 @@ export KEYTIMEOUT=1
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow -g '!.git/*' -g '!.cfg/*' -g '!.wine/*' -g '!.npm/*' -g '!.cache/*'"
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export PATH="$HOME/bin:$PATH"
-export PATH=$PATH:~/.cargo/bin
+#export PATH=$PATH:~/.cargo/bin
 export PATH="/home/$USER/.git-fuzzy/bin:/home/$USER/.local/bin:$PATH"
-export MAKEFLAGS="-j$(expr $(nproc) \+ 1)"
+export PATH="$(python3 -m site --user-base)/bin:${PATH}"
+export PATH=$PATH:$(go env GOPATH)/bin
+#export MAKEFLAGS="-j$(expr $(nproc) \+ 1)"
 export LC_ALL=en_US.UTF-8
-export EDITOR=/usr/bin/nvim
+export EDITOR=/usr/local/bin/nvim
 export QT_QPA_PLATFORMTHEME=gtk2
 export BROWSER="/usr/local/bin/chromium"
 export XDG_DATA_HOME=$HOME/.local/share
@@ -18,4 +20,10 @@ export LESS=-RS
 
 #export QT_QPA_PLATFORM=wayland
 #export QT_WAYLAND_FORCE_DPI=physical
+
+# . "$HOME/.cargo/env"
+#
+
+# for kubectl <v1.25 
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 

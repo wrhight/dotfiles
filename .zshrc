@@ -13,7 +13,8 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 fpath+=$HOME/.zplugins/pure
-
+fpath=(/usr/local/share/zsh/site-functions $fpath)
+ 
 autoload -U promptinit; promptinit
 prompt pure
 
@@ -84,4 +85,16 @@ n()
 compdef _gnu_generic delta
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# starship prompt
+# eval "$(starship init zsh)"
+
+# For brew gcloud
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+
+# nvm macos
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
